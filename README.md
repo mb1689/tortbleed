@@ -37,84 +37,60 @@ You must do the following, or this scanner just wont work:
 
 Once those steps are completed, you can then run the scanner.  The usage output is below, along
 with an example with output:
-
-$ ./tortbleed.py <snipped for privacy>.onion
-
+```
+$ ./tortbleed.py -c 1 3g2upl4pq6kufc4m.onion
 Starting Tor Daemon & Connecting to Tor Network...
+Connected to Tor Relay.
+My ip is 109.163.234.7 (edwardsnowden0.torservers.net)
 
-Connected to Tor Relay. My ip is 188.138.9.49 (atlantic480.us.unmetered.com)
+====================================
+Server: 3g2upl4pq6kufc4m.onion
+Run number: 1
+====================================
 
 Sending Client Hello...
-
 Waiting for Server Hello...
-
  ... received message: type = 22, ver = 0302, length = 66
- 
  ... received message: type = 22, ver = 0302, length = 2483
- 
  ... received message: type = 22, ver = 0302, length = 331
- 
  ... received message: type = 22, ver = 0302, length = 4
- 
-Sending heartbeat request... Unexpected EOF receiving record header - server closed connection
+Sending heartbeat request...
+Unexpected EOF receiving record header - server closed connection
+No heartbeat response received, server likely not vulnerable.
 
-No heartbeat response received, server likely not vulnerable
+====================================
 
-
-$ ./tortbleed.py 192.168.1.43
-
+Done, exiting.
+```
+```
+$ ./tortbleed.py -c 1 192.168.1.43
 Connecting to non-onion address...
 
+====================================
+Server: 192.168.1.43
+Run number: 1
+====================================
+
 Sending Client Hello...
-
 Waiting for Server Hello...
-
  ... received message: type = 22, ver = 0302, length = 58
- 
- ... received message: type = 22, ver = 0302, length = 961
- 
- ... received message: type = 22, ver = 0302, length = 525
- 
+ ... received message: type = 22, ver = 0302, length = 437
+ ... received message: type = 22, ver = 0302, length = 397
  ... received message: type = 22, ver = 0302, length = 4
- 
 Sending heartbeat request...
-
  ... received message: type = 24, ver = 0302, length = 16384
- 
- Received heartbeat response:
- 
- 0000: 02 40 00 D8 03 02 53 43 5B 90 9D 9B 72 0B BC 0C  .@....SC[...r...
- 
- 0010: BC 2B 92 A8 48 97 CF BD 39 04 CC 16 0A 85 03 90  .+..H...9.......
- 
- 0020: 9F 77 04 33 D4 DE 00 00 66 C0 14 C0 0A C0 22 C0  .w.3....f.....".
- 
- 0030: 21 00 39 00 38 00 88 00 87 C0 0F C0 05 00 35 00  !.9.8.........5.
- 
- 0040: 84 C0 12 C0 08 C0 1C C0 1B 00 16 00 13 C0 0D C0  ................
- 
- 0050: 03 00 0A C0 13 C0 09 C0 1F C0 1E 00 33 00 32 00  ............3.2.
- 
- 0060: 9A 00 99 00 45 00 44 C0 0E C0 04 00 2F 00 96 00  ....E.D...../...
- 
- 0070: 41 C0 11 C0 07 C0 0C C0 02 00 05 00 04 00 15 00  A...............
- 
- 0080: 12 00 09 00 14 00 11 00 08 00 06 00 03 00 FF 01  ................
- 
- 0090: 00 00 49 00 0B 00 04 03 00 01 02 00 0A 00 34 00  ..I...........4.
- 
- 00a0: 32 00 0E 00 0D 00 19 00 0B 00 0C 00 18 00 09 00  2...............
- 
- 00b0: 0A 00 16 00 17 00 08 00 06 00 07 00 14 00 15 00  ................
- 
- 00c0: 04 00 05 00 12 00 13 00 01 00 02 00 03 00 0F 00  ................
- 
- 00d0: 10 00 11 00 23 00 00 00 0F 00 01 01 00 00 00 00  ....#...........
- 
- --snipped output remaining output for readme brevity--
+Received heartbeat response:
+  0000: 02 40 00 D8 03 02 53 43 5B 90 9D 9B 72 0B BC 0C  .@....SC[...r...
+  0010: BC 2B 92 A8 48 97 CF BD 39 04 CC 16 0A 85 03 90  .+..H...9.......
+  0020: 9F 77 04 33 D4 DE 00 00 66 C0 14 C0 0A C0 22 C0  .w.3....f.....".
+				--snipped output remaining output for readme brevity--
 
 WARNING: server returned more data than it should - server is vulnerable!
 
+====================================
+
+Done, exiting.
+```
 ==========Troubleshooting==========
 
 You may get tracebacks because I haven't included any error handling.
@@ -131,6 +107,13 @@ This happens when connection to the .onion endpoint fails to successfully comple
 Tor Relay you are connected through.  This can be for a number of reasons, and may be worth
 trying once more.  Same result usually means problems with the .onion server (either not having
 the port you're attempting to scan on enabled, or other connection-related issues).
+
+3 - "Help, there's lag in the data returned from the server for .onion URL's!" 
+This is due to the delay introduced in general when transmitting / receiving over the Tor network.
+Additionally, some exit nodes / relays introduce a bandwidth throttle for outgoing traffic to
+limit the impact on the non-Tor network traffic of the host.  This is not the fault of the script,
+but rather of the Tor network and/or Relay operator.  Try running the script again to potentially
+hit a new exit node / relay and potentially improve that performance (or worsen it! :P)
 
 Good luck!
 

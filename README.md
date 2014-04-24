@@ -7,27 +7,36 @@ Modification of Samiux's Heartbleed Reload scanner to allow direct scanning of .
 
 - SocksiPy ( Available here: https://github.com/mikedougherty/SocksiPy ).
 
-- urllib2 ( Available here, amongst others for python2.7: https://github.com/python-git/python/blob/master/Lib/urllib2.py ).
+- urllib2 ( Available here, amongst others for python2.7: 
+  https://github.com/python-git/python/blob/master/Lib/urllib2.py ).
 
-- socket ( Available here, amongst others for python2.7: https://github.com/python-git/python/blob/master/Lib/socket.py ).
+- socket ( Available here, amongst others for python2.7: 
+  https://github.com/python-git/python/blob/master/Lib/socket.py ).
 
-- A local tor server configured to allow you to connect through it to endpoints.  You do not necessarily need to configure it as a relay, so long as your IP is configured in a 'SocksPolicy accept' rule.  Being configured as a relay will not have a negative impact, though, should you have that set-up.
+- A local tor server configured to allow you to connect through it to endpoints.  You do not 
+  necessarily need to configure it as a relay, so long as your IP is configured in a 
+  'SocksPolicy accept' rule.  Being configured as a relay will not have a negative impact, 
+  though, should you have that set-up.
 
-- Python 2.7, as this was the only version I tested this script against.  Please feel free to modify it to work with whatever version you might be using other than 2.7.
+- Python 2.7, as this was the only version I tested this script against.  Please feel free to 
+  modify it to work with whatever version you might be using other than 2.7.
 
 ==========Setup & Usage==========
 
 You must do the following, or this scanner just wont work:
 
-1. Ensure you have installed and setup Tor on a system accessible to you to ensure you can bounce through it via this script.
+1. Ensure you have installed and setup Tor on a system accessible to you to ensure you can 
+   bounce through it via this script.
 
-2. Edit your copy of torwrapper.py to suit your Tor instance ip / hostname and port to access, on lines 11 & 12.
+2. Edit your copy of torwrapper.py to suit your Tor instance ip / hostname and port to access, 
+   on lines 11 & 12.
 
 3. Copy the edited torwrapper.py file to your Python site-packages directory.
 
 4. Ensure you have installed the SocksiPy, socket, and urllib2 site-packages properly.
 
-Once those steps are completed, you can then run the scanner.  The usage output is below, along with an example with output:
+Once those steps are completed, you can then run the scanner.  The usage output is below, along 
+with an example with output:
 
 # ./tortbleed.py <snipped for privacy>.onion
 Starting Tor Daemon & Connecting to Tor Network...
@@ -75,13 +84,20 @@ WARNING: server returned more data than it should - server is vulnerable!
 
 ==========Troubleshooting==========
 
-You may get tracebacks because I haven't included any error handling.  The two most common I found during testing are explained below.
+You may get tracebacks because I haven't included any error handling.
+The two most common I found during testing are explained below.
 
 1 - socks.Socks5Error: ((2, 'connection not allowed by ruleset'),)
-This occurs when the Tor Relay you are connected to for this particular scan doesn't allow outgoing connections to the .onion you are attempting to scan.  Most often, attempting another run of the same command will connect you to another Relay and allow this to go through.  If, however, you hit the same error, another few attempts may be required.
+This occurs when the Tor Relay you are connected to for this particular scan doesn't allow 
+outgoing connections to the .onion you are attempting to scan.  Most often, attempting another 
+run of the same command will connect you to another Relay and allow this to go through.  If, 
+however, you hit the same error, another few attempts may be required.
 
 2 - socks.Socks5Error: ((91, 'request rejected or failed'),)
-This happens when connection to the .onion endpoint fails to successfully complete through the Tor Relay you are connected through.  This can be for a number of reasons, and may be worth trying once more.  Same result usually means problems with the .onion server (either not having the port you're attempting to scan on enabled, or other connection-related issues).
+This happens when connection to the .onion endpoint fails to successfully complete through the 
+Tor Relay you are connected through.  This can be for a number of reasons, and may be worth 
+trying once more.  Same result usually means problems with the .onion server (either not having 
+the port you're attempting to scan on enabled, or other connection-related issues).
 
 Good luck!
 

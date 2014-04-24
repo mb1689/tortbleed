@@ -1,7 +1,7 @@
 tortbleed
 =========
 
-Modification of Samiux's Heartbleed Reload scanner to allow direct scanning of .onion addresses.
+Modification of Samiux's (http://samiux.blogspot.com/) Heartbleed Reload (from 4/11) scanner to allow direct scanning of .onion addresses.
 
 ==========System Requirements==========
 

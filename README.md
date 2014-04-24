@@ -94,7 +94,7 @@ Done, exiting.
 ==========Troubleshooting==========
 
 You may get tracebacks because I haven't included any error handling.
-The two most common I found during testing are explained below.
+The 3 most common I found during testing are explained below.
 
 1 - socks.Socks5Error: ((2, 'connection not allowed by ruleset'),)
 This occurs when the Tor Relay you are connected to for this particular scan doesn't allow

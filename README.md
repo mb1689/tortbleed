@@ -38,7 +38,7 @@ You must do the following, or this scanner just wont work:
 Once those steps are completed, you can then run the scanner.  The usage output is below, along
 with an example with output:
 
-# ./tortbleed.py <snipped for privacy>.onion
+$ ./tortbleed.py <snipped for privacy>.onion
 Starting Tor Daemon & Connecting to Tor Network...
 Connected to Tor Relay. My ip is 188.138.9.49 (atlantic480.us.unmetered.com)
 Sending Client Hello...
@@ -50,7 +50,7 @@ Waiting for Server Hello...
 Sending heartbeat request... Unexpected EOF receiving record header - server closed connection
 No heartbeat response received, server likely not vulnerable
 
-# ./tortbleed.py 192.168.1.43
+$ ./tortbleed.py 192.168.1.43
 Connecting to non-onion address...
 Sending Client Hello...
 Waiting for Server Hello...
@@ -98,3 +98,4 @@ the port you're attempting to scan on enabled, or other connection-related issue
 
 Good luck!
 
+Mike <michael@prattlecorp.com>
